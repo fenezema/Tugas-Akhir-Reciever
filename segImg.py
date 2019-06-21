@@ -7,6 +7,7 @@ Created on Sun Apr 28 22:20:39 2019
 #IMPORT
 from ValidationPreprocess import *
 from ModelBuild import *
+import sys
 #IMPORT
 
 #GLOBAL INIT
@@ -102,10 +103,13 @@ def main():
                 continue
             charas_nya = ''.join(the_charas)
             result = open('result.txt','w')
-            result.write(charas_nya)
+            result.write(charas_nya+'.jpg')
             result.close()
             if len(the_charas) == 0:
                 print("No Charas Found")
+                result = open('result.txt','w')
+                result.write('No Charas Found')
+                result.close()
             else:
                 print(charas_nya)
             theData.close()
@@ -115,7 +119,8 @@ def main():
             continue
 
 def main1():
-    img = cv2.imread('toTestedForSync/roi0.jpg')
+    arg_nya = sys.argv
+    img = cv2.imread('toTestedForSync/roi'+str(arg_nya[1])+'.jpg')
     newImg,eroded,the_charas,flag = segImg(img,'roi0.jpg')
     charas_nya = ''.join(the_charas)
     print(charas_nya)
